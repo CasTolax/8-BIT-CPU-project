@@ -1,5 +1,7 @@
 /*  
-    By CasTolax 2026
+    * By CasTolax 2026
+    * The CPU loop is here
+    
 */
 
 #include <stdint.h>
