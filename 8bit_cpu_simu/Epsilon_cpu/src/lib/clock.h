@@ -20,7 +20,9 @@ int FLIP = 0;
 // sleep time: 0.5,1,5,10 seconds
 void SLEEP(int number)
 {   
-
+   
+   uint8_t PC = 0; // Program Counter
+   
     switch (number)
     {
     case 0: // 0.5
