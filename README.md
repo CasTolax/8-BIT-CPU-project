@@ -13,4 +13,4 @@ This is a processor designed to operate in the binary number system, but I’m t
 
 ## extra
 
-Some files do not contain codes, but others do, and there are at least 80 to 100 of them. Just so you know...
+I doing this project right now and, rebuilding codes,functions and etc. So? wait for me about this project!
