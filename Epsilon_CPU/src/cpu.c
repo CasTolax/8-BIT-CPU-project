@@ -11,49 +11,44 @@
 #include "../lib/opcodes.h"
 #include "../lib/clock.h"
 
-int main(void)
-{   
-    int A,B;
-    A = 10;
-    B = 5;
 
-   while (1)
-   {
-     
-      for(int i = 0; i < 256; i++){
-        RAM[i] = CPU_MAIN(A,B);
-        printf("RAM[%d] = %d\n", i, RAM[i]);
-        break;
-      }
-   }
-   
-}
-
-int CPU_MAIN(int A, int B)
+int CPU_MAIN(void)
 {   
 
-    switch (sub)
-    {
-    case add:{
+    int WRITING = 0; // writing start at 0
 
-        int result = ADD(A,B);
-        printf("%d\n",result);
+    int A = 10; // example
+    int B = 5;  // example
 
-        RAM[RAM_SIZE+1] = ADD(A,B);
-        
-        break;
-    }
-        
-    case sub: {
-        int result_sub = SUB(A,B);
-        printf("%d\n", result_sub);
+    /*
+    there is calculations about A and B, when output is ready,
+    RAM writing and print to screen with adress. 
+    */
+    int result = ADD(A,B);    
+    printf("0x01 = %d\n",result);
 
-        RAM[RAM_SIZE+1] = SUB(A,B);
-        break;
-    }
-    
-    default:
-        break;
-    }
+    int result_sub = SUB(A,B);
+    printf("0x02 = %d\n ", result_sub);
+
+    RAM[WRITING++] = ADD(A,B);
+    RAM[WRITING++] = SUB(A,B);
+
     return 0;
 }
+
+
+
+int main(void)
+{   
+    CPU_MAIN();
+    for(int i = 0; i < 256; i++){
+        
+        if(i % 16 == 0){
+            printf("\n%03d: ", i);
+        }
+        printf("%4d ", RAM[i]);
+      }
+   printf("\n");
+     
+}
+
