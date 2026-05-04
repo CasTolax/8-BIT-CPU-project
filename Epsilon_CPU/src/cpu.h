@@ -6,6 +6,6 @@
 #define CPU_H
 
 #include <stdint.h>
-int CPU_MAIN(int A,int B);
+int CPU_MAIN(void);
 
 #endif
