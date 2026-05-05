@@ -8,7 +8,7 @@
 // OPCODES MAP
 
 #define RAM_SIZE 256       // size of the RAM
-uint8_t RAM[RAM_SIZE];    // RAM array
+extern int RAM[RAM_SIZE];    // RAM array
 
 #define CPU_START 1    // start of the CPU
 #define add 0x01            // addition
