@@ -7,8 +7,8 @@ SRCDIR = src
 OBJDIR = obj
 TARGET = epsilon_cpu
 
-SRCS = $(wildcard $(SRCDIR)/*.c)
-OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
+SRCS = $(wildcard $(SRCDIR)/*.c) $(wildcard lib/*.c) $(wildcard lib/alu/*.c) $(wildcard lib/err/*.c)
+OBJS = $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
 
 .DEFAULT_GOAL := run
 .PHONY: all run clean
@@ -21,11 +21,9 @@ run: $(TARGET)
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+$(OBJDIR)/%.o: %.c
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
 
 clean:
 	rm -rf $(OBJDIR) $(TARGET)
