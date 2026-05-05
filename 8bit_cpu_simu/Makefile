@@ -1,19 +1,29 @@
+# Makefile for Epsilon_CPU
+
 CC = gcc
-CFLAGS = -g -Wall -I.
-SRCS = $(wildcard **/*.c)
-OBJS = $(SRCS:.c=.o)
-TARGET = cpu_sim
+CFLAGS = -std=c11 -Wall -Wextra -Werror -g
+INCLUDES = -I./lib -I./src
+SRCDIR = src
+OBJDIR = obj
+TARGET = epsilon_cpu
 
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+SRCS = $(wildcard $(SRCDIR)/*.c) $(wildcard lib/*.c) $(wildcard lib/alu/*.c) $(wildcard lib/err/*.c)
+OBJS = $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+.DEFAULT_GOAL := run
+.PHONY: all run clean
 
-clean:
-	rm -f $(OBJS) $(TARGET)
+all: $(TARGET)
 
 run: $(TARGET)
 	./$(TARGET)
 
-.PHONY: clean run
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@
+
+$(OBJDIR)/%.o: %.c
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	rm -rf $(OBJDIR) $(TARGET)
