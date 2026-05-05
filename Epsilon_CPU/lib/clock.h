@@ -7,8 +7,9 @@
 
 #include <stdint.h>
 
-uint8_t CLOCK_CYCLE = 0;
-uint8_t PC = 0; // program counter
+// Program sayacı: CPU'nun hangi adımda olduğunu tutar.
+extern uint8_t PC;
 
+void clock_cycle(void);
 
 #endif
