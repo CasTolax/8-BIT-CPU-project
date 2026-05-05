@@ -5,50 +5,34 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "cpu.h" // prototype of CPU_MAIN
 #include "../lib/alu/alu.h"
 #include "../lib/opcodes.h"
-#include "../lib/clock.h"
+#include "../lib/err/errors.h"
 
+#include "../lib/clock.h"
 
 int CPU_MAIN(void)
 {   
+    /* example values */
+    int A = 100;
+    int B = 5;
 
-    int WRITING = 0; // writing start at 0
+    clock_cycle(); // Start the clock cycle
+    ALU(A,B);
 
-    int A = 10; // example
-    int B = 5;  // example
-
-    /*
-    there is calculations about A and B, when output is ready,
-    RAM writing and print to screen with adress. 
-    */
-    int result = ADD(A,B);    
-    printf("0x01 = %d\n",result);
-
-    int result_sub = SUB(A,B);
-    printf("0x02 = %d\n ", result_sub);
-
-    RAM[WRITING++] = ADD(A,B);
-    RAM[WRITING++] = SUB(A,B);
-
+    if(DIV(A,B) == 0){
+        zero_division_error();
+    }
     return 0;
 }
 
-
-
 int main(void)
-{   
-    CPU_MAIN();
-    for(int i = 0; i < 256; i++){
-        
-        if(i % 16 == 0){
-            printf("\n%03d: ", i);
-        }
-        printf("%4d ", RAM[i]);
-      }
-   printf("\n");
-     
+{       
+    CPU_MAIN(); // Call the function
+   
+    return 0;
 }
 
