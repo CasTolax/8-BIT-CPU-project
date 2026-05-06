@@ -7,12 +7,11 @@
 #include <stdlib.h>
 #include "errors.h"
 
-// ALU kütüphanesine erişim için doğru path
 #include "../alu/alu.h"
 
-// Zero division hatasını test etmek için yardımcı fonksiyon
-// Bu fonksiyon errors.c içinde zaten tanımlanmıştır,
-// burada yalnızca test amaçlı kullanıldığından saklanan bir versiyonumuz var.
+// Helper function to test for division by zero
+// This function is already defined in errors.c;
+// since it is used here solely for testing purposes, we have a separate version.
 void test_zero_division(void)
 {   
     if(DIV(0,0) == 0){
