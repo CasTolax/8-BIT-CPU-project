@@ -7,7 +7,14 @@
 
 #include <stdint.h>
 
-int ALU (int A, int B); // prototype function
+/*
+    The arithmetic logic unit has an 8-bit data bus and processing power, 
+    and the expandable data bus is 256 bytes wide.
+
+    It can also perform mathematical operations 
+    (and can be modified to suit individual needs if desired).
+*/
+int ALU (int A, int B); 
 
 static inline uint8_t ADD (uint8_t A, uint8_t B)
 {   
