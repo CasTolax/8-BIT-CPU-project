@@ -14,25 +14,65 @@
 
 #include "../lib/clock.h"
 
-int CPU_MAIN(void)
-{   
-    /* example values */
-    int A = 100;
-    int B = 5;
+typedef struct{
 
-    clock_cycle(); // Start the clock cycle
-    ALU(A,B);
+    /* Example values*/
+    int A;
+    int B;
 
-    if(DIV(A,B) == 0){
+}data;
+
+// CPU error handling
+int cpu_error(void){
+
+    /* struct datas */
+    data d;
+
+    /* values */
+    d.A = 22;
+    d.B = 5;
+
+    /* NULL and zero errors handling */
+    if(d.A == 0){
+        null_warning();
+    } 
+    else if(d.B == 0){
+        null_warning();
+    }
+    else{
+        return 0;
+    }
+
+    /* division process: divided by zero error handling */
+    if(DIV(d.A,d.B) == 0){
         zero_division_error();
     }
+    else{
+        return 0;
+    }
+
+
     return 0;
 }
 
+// the MAIN function
+int CPU_MAIN(void)
+{   
+    data d;
+    d.A = 22;
+    d.B = 5;
+
+    clock_cycle(); // Start the clock cycle
+    ALU(d.A,d.B);
+    
+    return 0;
+}
+
+// function called 
 int main(void)
 {       
     CPU_MAIN(); // Call the function
-   
+    cpu_error();
     return 0;
 }
 
