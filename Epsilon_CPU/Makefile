@@ -7,7 +7,7 @@ SRCDIR = src
 OBJDIR = obj
 TARGET = epsilon_cpu
 
-SRCS = $(wildcard $(SRCDIR)/*.c) $(wildcard lib/*.c) $(wildcard lib/alu/*.c) $(wildcard lib/err/*.c)
+SRCS = $(wildcard $(SRCDIR)/*.c) $(wildcard lib/*.c) $(wildcard lib/alu/*.c) $(wildcard lib/err/*.c) $(wildcard lib/scheduler/*.c)
 OBJS = $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
 
 .DEFAULT_GOAL := run
