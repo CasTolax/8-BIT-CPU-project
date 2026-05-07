@@ -14,6 +14,7 @@
 
 #include "../lib/clock.h"
 
+// data of values
 typedef struct{
 
     /* Example values*/
@@ -48,6 +49,13 @@ int cpu_error(void){
         zero_division_error();
     }
     else{
+        return 0;
+    }
+
+    // RAM overflow ERROR
+    if(RAM[RAM_SIZE] == 256){
+        memory_overflow_error();
+    } else {
         return 0;
     }
 
