@@ -12,6 +12,7 @@
 #include "../lib/opcodes.h"
 #include "../lib/err/errors.h"
 
+#include "../lib/scheduler/scheduler.h"
 #include "../lib/clock.h"
 
 // data of values
@@ -76,10 +77,25 @@ int CPU_MAIN(void)
     return 0;
 }
 
+/* scheduler */
+int cpu_scheduler(void){
+
+    Process processes[PROCESS_COUNT] = {
+
+        {1,5, READY},
+        {2,3, READY},
+        {3,6, READY}
+
+    };
+
+    run_scheduler(processes);
+}
+
 // function called 
 int main(void)
 {       
     CPU_MAIN(); // Call the function
+    
     cpu_error();
     return 0;
 }
