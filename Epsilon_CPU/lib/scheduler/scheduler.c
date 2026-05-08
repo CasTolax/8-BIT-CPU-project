@@ -10,24 +10,59 @@
 #include "scheduler.h"
 
 /*
-    * sürekli tekrar edicek, eğer tüm işlemler biterse kapanır.
-    * eğer işlem var ise -> verilen zaman kadar işle ve sonrakine geç
-    * eğer daha bitmeyen işlem varsa -> kuyruğa al
-    * eğer işlem işlenmeye hazır ise -> başlat
-    * biterse  = TERMINATED yap
-    * bitmeyen işlem var ise kontrol et
-    * bitir
-    * işlemleri tekrar et
-    
+    * It will loop continuously; if all tasks are complete, it will exit.
+    * If there is a task -> process it for the specified duration and move on to the next one
+    * If there are tasks that haven't finished yet -> add them to the queue
+    * If a task is ready to be processed -> start it
+    * If it finishes  = set to TERMINATED
+    * If there are tasks that haven't finished yet, check them
+    * Exit
+    * Repeat the tasks
+ 
 */
 
-void run_scheduler(Process p[]){
-    //! GEL YAZ DAHA SONRA AÇIKLA
+/* building with AI! */
+void run_scheduler(Process p[])
+{   
 
     int finished = 0;
 
     while(finished < PROCESS_COUNT)
     {
+        for(int i = 0; i<PROCESS_COUNT; i++){
 
+            if(p[i].state == TERMINATED)
+            continue;
+
+            p[i].state = RUNNING;
+
+            printf("Process %d running\n", p[i].pid);
+
+            int work = QUANTUM;
+
+            if(p[i].remaining_time < QUANTUM)
+                work = p[i].remaining_time;
+
+            p[i].remaining_time -= work;
+
+            printf("Reamaining: %d\n", p[i].remaining_time);
+
+            if(p[i].remaining_time <= 0)
+            {
+                p[i].state = TERMINATED;
+                finished++;
+
+                printf("Process %d terminated\n", p[i].pid);
+            }
+            else{
+                p[i].state = READY;
+            }
+        }
     }
+
+
+
+
+
+    return 0;
 }
