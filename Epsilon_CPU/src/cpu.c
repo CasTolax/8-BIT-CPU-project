@@ -12,8 +12,8 @@
 #include "../lib/opcodes.h"
 #include "../lib/err/errors.h"
 
-#include "../lib/scheduler/scheduler.h"
 #include "../lib/clock.h"
+#include "../lib/scheduler.h"
 
 // data of values
 typedef struct{
@@ -77,26 +77,13 @@ int CPU_MAIN(void)
     return 0;
 }
 
-/* scheduler */
-int cpu_scheduler(void){
-
-    Process processes[PROCESS_COUNT] = {
-
-        {1,5, READY},
-        {2,3, READY},
-        {3,6, READY}
-
-    };
-
-    run_scheduler(processes);
-}
-
 // function called 
 int main(void)
 {       
     CPU_MAIN(); // Call the function
-    
     cpu_error();
+
+    run_scheduler(CPU_MAIN);
     return 0;
 }
 
