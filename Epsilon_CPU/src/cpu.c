@@ -13,7 +13,8 @@
 #include "../lib/err/errors.h"
 
 #include "../lib/clock.h"
-#include "../lib/scheduler.h"
+// #include "../lib/scheduler.h" // make another day
+#include "../lib/command/write_cache.h"
 
 // data of values
 typedef struct{
@@ -64,6 +65,14 @@ int cpu_error(void){
     return 0;
 }
 
+
+// cache
+int cache_cpu(void)
+{
+    write_cache(ALU(d.A,d.B));
+    return 0;
+}
+
 // the MAIN function
 int CPU_MAIN(void)
 {   
@@ -73,6 +82,7 @@ int CPU_MAIN(void)
 
     clock_cycle(); // Start the clock cycle
     ALU(d.A,d.B);
+    cache_cpu();
     
     return 0;
 }
@@ -83,7 +93,8 @@ int main(void)
     CPU_MAIN(); // Call the function
     cpu_error();
 
-    run_scheduler(CPU_MAIN);
+    //run_scheduler(CPU_MAIN);
     return 0;
 }
+
 
