@@ -14,4 +14,7 @@ int cpu_error(void);
 // scheduler
 int scheduler_cpu(void);
 
+/* cache */
+int cache_cpu(void);
+
 #endif
