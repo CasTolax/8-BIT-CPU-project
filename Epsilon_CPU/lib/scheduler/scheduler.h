@@ -8,24 +8,26 @@
 
 #include <stdint.h>
 
-#define PROCESS_COUNT 3     
-#define QUANTUM 2           // tick time
+#define PROCESS_COUNT 10  // sadece 10 tane iş yapılacak
+#define QUANTUM 2 // sadece 2 tick 
 
-typedef enum {
 
-    READY,          // when the process are ready
-    RUNNING,        // Process are running
-    TERMINATED      // proceess is finish
-
-}ProcessSTATE;
-
-typedef struct{
-
-    int pid;                // Process ID
-    int remaining_time;     // Remaining task time
-    ProcessSTATE state;     // Enum: ProcessSTATE to state
-
+typedef enum
+{
+    READY,  // hazır olduğunda
+    RUNNING, // çalışıyorken
+    COMPLETED // bitirildiği zaman
+    
 }Process;
+
+
+typedef struct 
+{
+    int pid; // process kimlik
+    int remaining_time; // kalan süre
+
+}ProcessState;
+
 
 // prototype function
 void run_scheduler(Process p[]);
