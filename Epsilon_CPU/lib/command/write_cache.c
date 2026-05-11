@@ -4,23 +4,31 @@
 
 
 #include <stdio.h>
-#include <.stdlib.h>
+#include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 
 #include "write_cache.h"
+#include "../lib/alu/alu.h"
+#include "../lib/opcodes.h"
 
-void write_cache(CACHE_SIZE)
+
+int write_cache(int write_process[CACHE_SIZE])
 {	
-	int WRITE_DISK = 0;
 
 	printf(" -- CACHE -- ");
 
-	for(int i = 0; i < 64; i++){
-        
-        if(i % 16 == 0){
-            printf("\n%03d: ", i);
+	for(int i = 0; i<64; i++)
+    {   
+        RAM[i] = write_process[i];
+
+        if(i % 8 == 0)
+        {
+            printf("\n%02d: ",i);
         }
-        printf("%4d ", CACHE[i]);
-      }
-   printf("\n");
+        printf("%2d ",write_process[i]);
+    }
+    printf("\n");
+
+    return 0;
 }
