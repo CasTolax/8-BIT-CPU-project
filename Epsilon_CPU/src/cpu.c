@@ -66,12 +66,7 @@ int cpu_error(void){
 }
 
 
-// cache
-int cache_cpu(void)
-{
-    write_cache(ALU(d.A,d.B));
-    return 0;
-}
+
 
 // the MAIN function
 int CPU_MAIN(void)
@@ -82,7 +77,9 @@ int CPU_MAIN(void)
 
     clock_cycle(); // Start the clock cycle
     ALU(d.A,d.B);
-    cache_cpu();
+    
+    /* cache */
+    write_cache(RAM);    
     
     return 0;
 }
@@ -96,5 +93,4 @@ int main(void)
     //run_scheduler(CPU_MAIN);
     return 0;
 }
-
 
