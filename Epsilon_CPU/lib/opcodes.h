@@ -10,9 +10,6 @@
 #define RAM_SIZE 256       // size of the RAM
 extern int RAM[RAM_SIZE];    // RAM array
 
-#define CACHE_SIZE 64 // size of the cache (64kb)
-extern int CACHE[CACHE_SIZE]; // cache array 
-
 #define CPU_START 1    // start of the CPU
 #define add 0x01            // addition
 #define sub 0x02            // subtraction
