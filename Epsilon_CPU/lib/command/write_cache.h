@@ -12,6 +12,7 @@
 #define WRITE_CACHE_TRUE  // 1 yazdırılacak ise evet
 
 #define CACHE_SIZE	64 // size of cache(64kb)
+extern int CACHE[CACHE_SIZE];
 
 void write_cache(int write_process);
 
