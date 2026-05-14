@@ -11,7 +11,9 @@
 #include "../clock.h"
 
 int ALU (int A, int B)
-{
+{        
+    printf("\n Ram is ready... \n ");
+    
     int WRITING = 0; // writing start at 0
 
     /*
