@@ -16,6 +16,8 @@
 int write_cache(int write_process[CACHE_SIZE])
 {	
 
+	printf("\n Cache is ready to read... \n");
+	
 	printf(" -- CACHE -- ");
 
 	for(int i = 0; i<64; i++)
