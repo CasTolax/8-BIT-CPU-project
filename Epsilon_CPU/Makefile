@@ -12,7 +12,8 @@ SRCS = $(wildcard $(SRCDIR)/*.c) \
        $(wildcard lib/alu/*.c) \
        $(wildcard lib/err/*.c) \
        $(wildcard lib/scheduler/*.c) \
-       $(wildcard lib/command/*.c)
+       $(wildcard lib/command/*.c) \
+       $(wildcard lib/interrupts/*.c)
 
 OBJS = $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
 
@@ -44,7 +45,7 @@ $(OBJDIR)/%.o: %.c
 	@count=$$(cat $(COUNT_FILE) 2>/dev/null || echo 0); \
 	count=$$((count + 1)); \
 	echo $$count > $(COUNT_FILE); \
-	printf "$(GREEN)[%d$(RESET)/$(BLUE)%d$(RESET)] $(GREEN)OK$(RESET) %s\n" \
+	printf "$(GREEN)[%d$(RESET)/$(BLUE)%d$(RESET)] $(GREEN)OK!$(RESET) %s\n" \
 	$$count $(TOTAL) $@
 
 clean:
