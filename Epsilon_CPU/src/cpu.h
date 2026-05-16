@@ -19,8 +19,4 @@ int scheduler_cpu(void);
 /* cache */
 int cache_cpu(void);
 
-/* Keyboard İnterrupt */
-int keyboard_interrupt (void);
-// gel daha sonra bu fonksiyonu yaz
-
 #endif
