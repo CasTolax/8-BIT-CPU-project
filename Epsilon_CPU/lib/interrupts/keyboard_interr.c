@@ -8,9 +8,11 @@
 #include <string.h>
 
 #include "keyboard_interr.h"
+#include "../lib/command/ld_a_b.h"
 
-int keyboard_interrupts (void)
+int keyboard_interrupts (int A, int B)
 {	
+
 	char input[64];
 	printf(" \n You can write command right now(exit = 0).\n");
 
@@ -28,7 +30,15 @@ int keyboard_interrupts (void)
 
     	if (strcmp(input, "LDA") == 0)
     	{
-        	printf("LDA komutu \n");
+        	lda(A);
+    	}
+    	else if(strcmp(input, "LDB") == 0)
+    	{
+    		ldb(B);
+    	}
+    	else if(strcmp(input, "ALU") ==  0)
+    	{
+    		output_ALU(A,B);
     	}
     	else
     	{
