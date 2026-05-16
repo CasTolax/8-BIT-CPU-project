@@ -10,7 +10,7 @@
 #define KEYBOARD_TRUE 1
 #define KEYBOARD_FALSE 0
 
-int keyboard_interrupts (void);
+int keyboard_interrupts (int A,int B);
 
 #endif
 
