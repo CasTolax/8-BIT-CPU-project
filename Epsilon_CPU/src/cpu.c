@@ -15,6 +15,7 @@
 #include "../lib/clock.h"
 // #include "../lib/scheduler.h" // make another day
 #include "../lib/command/write_cache.h"
+#include "../lib/interrupts/keyboard_interr.h"
 
 // data of values
 typedef struct{
@@ -79,8 +80,13 @@ int CPU_MAIN(void)
     ALU(d.A,d.B);
     
     /* cache */
-    write_cache(RAM);    
-    
+    clock_cycle();
+    write_cache(RAM); 
+
+    /* Keyboard */   
+    keyboard_interrupts();   
+
+
     return 0;
 }
 
