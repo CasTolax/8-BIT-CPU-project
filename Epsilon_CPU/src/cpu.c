@@ -66,9 +66,6 @@ int cpu_error(void){
     return 0;
 }
 
-
-
-
 // the MAIN function
 int CPU_MAIN(void)
 {   
@@ -84,9 +81,11 @@ int CPU_MAIN(void)
     write_cache(RAM); 
 
     /* Keyboard */   
-    keyboard_interrupts();   
+    keyboard_interrupts(d.A,d.B); 
 
-
+   /* ALU result printed for commands */  
+    output_ALU(d.A,d.B);
+   
     return 0;
 }
 
