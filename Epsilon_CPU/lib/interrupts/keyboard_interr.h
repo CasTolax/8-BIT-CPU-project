@@ -11,7 +11,7 @@
 #define KEYBOARD_FALSE 0
 
 int keyboard_interrupts (int A,int B);
+void keyboard_status(void);
 
 #endif
-
 
