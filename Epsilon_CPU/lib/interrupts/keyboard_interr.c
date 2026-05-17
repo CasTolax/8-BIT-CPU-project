@@ -10,17 +10,39 @@
 #include "keyboard_interr.h"
 #include "../lib/command/ld_a_b.h"
 
+void keyboard_status(void)
+{
+	int keyboard_enable = KEYBOARD_TRUE;
+	int keyboard_disable = KEYBOARD_FALSE;
+
+	if(keyboard_enable)
+	{
+		printf("[Keyboard are enable] = 1 \n");
+	}
+	else if(keyboard_disable)
+	{
+		printf("[Keyboard are disable] = 0 \n ");
+	}
+
+}
+
 int keyboard_interrupts (int A, int B)
-{	
+{		
+
 
 	char input[64];
 	printf(" \n You can write command right now(exit = 0).\n");
 
+	keyboard_status();
+
 	 while(1)
 	 {	
+	 	printf(">");
+
 	 	// out
 	 	if(strcmp(input,"0") == 0)
 	 		break;
+
 
 
 	 	fgets(input, sizeof(input), stdin);
@@ -42,7 +64,7 @@ int keyboard_interrupts (int A, int B)
     	}
     	else
     	{
-        	printf("Bilinmeyen komut\n");
+        	printf("\n");
     	}
 	 }
 
