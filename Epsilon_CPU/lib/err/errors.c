@@ -28,6 +28,21 @@ void memory_overflow_error(void) {
     exit(EXIT_FAILURE);
 }
 
+// Error Handling for cache
+/*
+    When the Cache is the fully of values, theoretically
+    this function will be called
+*/
+void cache_overflow_error(void){
+
+    if(CACHE_SIZE == 64){
+
+        fprintf(stderr, "ERROR: CACHE overflow!\n");
+        exit(EXIT_FAILURE);
+    }
+    
+}
+
 // if, there is a NULL or empyt variable and value, this function will be called
 void null_warning(void){
     fprintf(stderr, "WARNING: there is a NULL output or input variable, writing in RAM... \n");
