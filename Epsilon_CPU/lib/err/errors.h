@@ -20,6 +20,9 @@ void invalid_process_error(void);
 // The RAM when overflow, this error handling will be called.
 void memory_overflow_error(void);
 
+// The Cache overflow
+void cache_overflow_error(void);
+
 /* If the output is empty (0 or NULL), it will issue a warning rather than an error. This way, 
 if the result of an operation is NULL, it will issue this warning after it has been written to RAM.*/
 void null_warning(void);
