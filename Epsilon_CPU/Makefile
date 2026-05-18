@@ -13,7 +13,8 @@ SRCS = $(wildcard $(SRCDIR)/*.c) \
        $(wildcard lib/err/*.c) \
        $(wildcard lib/scheduler/*.c) \
        $(wildcard lib/command/*.c) \
-       $(wildcard lib/interrupts/*.c)
+       $(wildcard lib/interrupts/*.c) \
+       $(wildcard lib/Logic Gates/*.c)
 
 OBJS = $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
 
