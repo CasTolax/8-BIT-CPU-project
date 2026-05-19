@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../lib/alu/alu.h"
+#include "../lib/sys_status/sys_status.h"
 
 #include "ld_a_b.h" // LDA/LDB header
 
@@ -31,5 +32,14 @@ int output_ALU(int A, int B)
 	printf("MUL[0x03] = %d\n",MUL(A,B));
 	printf("DIV[0x04] = %d\n",DIV(A,B));
 
+	return 0;
+}
+
+int sys_control(void)
+{	
+	printf("STATUS[0xBe1]: \n");
+	printf("%d\n",status_ALU());
+	printf("%d\n",status_CLOCK());
+	printf("%d\n",status_INTERRUPTS());
 	return 0;
 }
