@@ -10,6 +10,8 @@
 #include "../opcodes.h"
 #include "../clock.h"
 
+bool alu_active = true;
+
 int ALU (int A, int B)
 {        
     printf("\n Ram is ready... \n ");
