@@ -6,6 +6,9 @@
 #define ALU_H
 
 #include <stdint.h>
+#include <stdbool.h>
+
+extern bool alu_active;
 
 /*
     The arithmetic logic unit has an 8-bit data bus and processing power, 
