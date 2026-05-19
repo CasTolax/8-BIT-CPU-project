@@ -2,21 +2,25 @@
 	By CasTolax
 */
 
+#include <stdint.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
 #ifndef SYS_STATUS_H
 #define SYS_STATUS_H
 
 #define SYS_TRUE  1 // when the system enable
 #define SYS_FALSE 0 // or disable
 
-
 typedef struct
 {
-	int enable_ALU, disable_ALU;
-	int enable_CLOCK, disable_CLOCK;
-	int enable_INTERRUPTS, disable_INTERRUPTS;
-	int enable_COMMAND, enable_COMMAND; 
+	int A;
+	int B;
 
-}SYS_Status;
+	bool status_false;
+	bool status_true;
+
+}SYS;
 
 // check ALU and other process
 void status_ALU(void);
@@ -29,5 +33,8 @@ void status_INTERRUPTS(void);
 
 //check the command 
 void status_COMMAND(void);
+
+// main 
+int status_main(void);
 
 #endif
