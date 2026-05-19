@@ -1,18 +1,23 @@
 
 
-### NASIL DERLENİR?
+### HOW TO COMPILE?
 
-## Derleyeciler...
+## Compilers...
 
-İlk olarak derleyecilere ihitiyacımız var, bu işlemci simülasyonu C,C++ kodlarıyla çalışmaktadır. Sonuç olarak GCC ve G++ indirmeniz ve kullanmamız gerekmektedir.
+First, we need compilers; this processor simulation runs on C and C++ code. Therefore, we need to download and use GCC and G++.
 
-## Olabilecek hatalar
+## Possible Errors
 
-eğer ki kodlar derlenmiyor ise, ben bir çözüm bulamadım ve bu hata da: missing separator...
+If the code isn’t compiling, I couldn’t find a solution, and this error appears: “missing separator...”
 
-Makefile daki tüm kodlara dikkatle baktım ancak herhangi bir problem bulamadım, ne olur olmaz her bir TAB problemi yaratacak satırlara boşlukları sildim ve TAB tuşu ekledim. Ancak yine olmadı, bende Cloude AI dan yardım aldım ve bu python yazılımını tercih etmem gerektiğini söyledi, ve hakikatende çalıştı, eğer sizde böyle bir problem yaşarsanız bu kodu terminale yapıştırın!
+I carefully reviewed all the code in the Makefile but couldn’t find any issues. Just to be safe, I removed spaces from lines where a TAB might cause problems and added a TAB character. But it still didn’t work, so I asked Cloude AI for help, and it told me I should use this Python script instead—and it actually worked! If you encounter this problem, just paste this code into the terminal!
 
-(kodu kendi makinenize göre ayarlamayı unutmayın!)
+(Don’t forget to adjust the code for your own machine!)
+
+
+
+
+Translated with DeepL.com (free version)
 
 # Makefile for Epsilon_CPU
 CC = gcc
