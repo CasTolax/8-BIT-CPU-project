@@ -1,101 +1,40 @@
 /*
-    * By CasTolax 2026
+	By CasTolax
 */
 
 #include <stdint.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <stdbool.h>
 
-#include "cpu.h" // prototype of CPU_MAIN
-#include "../lib/alu/alu.h"
-#include "../lib/opcodes.h"
-#include "../lib/err/errors.h"
+#ifndef SYS_STATUS_H
+#define SYS_STATUS_H
 
-#include "../lib/clock.h"
-// #include "../lib/scheduler.h" // make another day
-#include "../lib/command/write_cache.h"
-#include "../lib/interrupts/keyboard_interr.h"
+#define SYS_TRUE  1 // when the system enable
+#define SYS_FALSE 0 // or disable
 
-// data of values
-typedef struct{
+typedef struct
+{
+	int A;
+	int B;
 
-    /* Example values*/
-    int A;
-    int B;
+	bool status_false;
+	bool status_true;
 
-}data;
+}SYS;
 
-// CPU error handling
-int cpu_error(void){
+// check ALU and other process
+void status_ALU(void);
 
-    /* struct datas */
-    data d;
+// chech timer or clock...
+void status_CLOCK(void);
 
-    /* values */
-    d.A = 22;
-    d.B = 5;
+// control ınterrupts to keyboard_interrupts
+void status_INTERRUPTS(void);
 
-    /* NULL and zero errors handling */
-    if(d.A == 0){
-        null_warning();
-    } 
-    else if(d.B == 0){
-        null_warning();
-    }
-    else{
-        return 0;
-    }
+//check the command 
+void status_COMMAND(void);
 
-    /* division process: divided by zero error handling */
-    if(DIV(d.A,d.B) == 0){
-        zero_division_error();
-    }
-    else{
-        return 0;
-    }
+// main 
+int status_main(void);
 
-    // RAM overflow ERROR
-    if(RAM[RAM_SIZE] == 256){
-        memory_overflow_error();
-    } else {
-        return 0;
-    }
-
-
-    return 0;
-}
-
-// the MAIN function
-int CPU_MAIN(void)
-{   
-    data d;
-    d.A = 22;
-    d.B = 5;
-
-    clock_cycle(); // Start the clock cycle
-    ALU(d.A,d.B);
-    
-    /* cache */
-    clock_cycle();
-    write_cache(RAM); 
-
-    /* Keyboard */   
-    keyboard_interrupts(d.A,d.B); 
-
-   /* ALU result printed for commands */  
-    output_ALU(d.A,d.B);
-   
-    return 0;
-}
-
-// function called 
-int main(void)
-{       
-    CPU_MAIN(); // Call the function
-    cpu_error();
-
-    //run_scheduler(CPU_MAIN);
-    return 0;
-}
-
+#endif
