@@ -23,16 +23,16 @@ typedef struct
 }SYS;
 
 // check ALU and other process
-void status_ALU(void);
+int status_ALU(void);
 
 // chech timer or clock...
-void status_CLOCK(void);
+int status_CLOCK(void);
 
 // control ınterrupts to keyboard_interrupts
-void status_INTERRUPTS(void);
+int status_INTERRUPTS(void);
 
 //check the command 
-void status_COMMAND(void);
+int status_COMMAND(void);
 
 // main 
 int status_main(void);
