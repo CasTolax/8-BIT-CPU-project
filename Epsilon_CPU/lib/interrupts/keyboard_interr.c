@@ -7,8 +7,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <stdbool.h>
+
 #include "keyboard_interr.h"
 #include "../lib/command/ld_a_b.h"
+#include "../lib/command/sys_status_command.h"
+
+bool keyboardInterr_active = true;
 
 void keyboard_status(void)
 {
@@ -33,6 +38,11 @@ int keyboard_interrupts (int A, int B)
 	char input[64];
 	printf(" \n You can write command right now(exit = 0).\n");
 
+	/*
+		keyboard function will be called,
+		and when user type someting, the output is like that:
+		[Keyboard are enable] = 1
+	*/
 	keyboard_status();
 
 	 while(1)
@@ -47,7 +57,7 @@ int keyboard_interrupts (int A, int B)
 
 	 	fgets(input, sizeof(input), stdin);
 
-    	// newline kaldır
+    	// erase the newline
     	input[strcspn(input, "\n")] = 0;
 
     	if (strcmp(input, "LDA") == 0)
@@ -61,6 +71,10 @@ int keyboard_interrupts (int A, int B)
     	else if(strcmp(input, "ALU") ==  0)
     	{
     		output_ALU(A,B);
+    	}
+    	else if(strcmp(input, "STATUS") == 0)
+    	{
+    		sys_control();
     	}
     	else
     	{
