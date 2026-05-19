@@ -1,28 +1,31 @@
 # Makefile for Epsilon_CPU
-
 CC = gcc
+CXX = g++
 CFLAGS = -std=c11 -Wall -Wextra -Werror -g
+CXXFLAGS = -std=c++17 -Wall -Wextra -Werror -g
 INCLUDES = -I./lib -I./src
 SRCDIR = src
 OBJDIR = obj
 TARGET = epsilon_cpu
 
-SRCS = $(wildcard $(SRCDIR)/*.c) \
-       $(wildcard lib/*.c) \
-       $(wildcard lib/alu/*.c) \
-       $(wildcard lib/err/*.c) \
-       $(wildcard lib/scheduler/*.c) \
-       $(wildcard lib/command/*.c) \
-       $(wildcard lib/interrupts/*.c) \
-       $(wildcard lib/Logic Gates/*.c)
+C_SRCS = $(wildcard $(SRCDIR)/*.c) \
+         $(wildcard lib/*.c) \
+         $(wildcard lib/alu/*.c) \
+         $(wildcard lib/err/*.c) \
+         $(wildcard lib/scheduler/*.c) \
+         $(wildcard lib/command/*.c) \
+         $(wildcard lib/interrupts/*.c) \
+         $(wildcard lib/logic_gates/*.c)
 
-OBJS = $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
+CPP_SRCS = $(wildcard lib/sys_status/*.cpp)
 
-# Progress system
-TOTAL := $(words $(SRCS))
+C_OBJS = $(patsubst %.c,$(OBJDIR)/%.o,$(C_SRCS))
+CPP_OBJS = $(patsubst %.cpp,$(OBJDIR)/%.o,$(CPP_SRCS))
+OBJS = $(C_OBJS) $(CPP_OBJS)
+
+TOTAL := $(words $(OBJS))
 COUNT_FILE := $(OBJDIR)/.count
 
-# Colors
 GREEN = \033[1;32m
 BLUE  = \033[1;34m
 RESET = \033[0m
@@ -36,13 +39,21 @@ run: $(TARGET)
 	./$(TARGET)
 
 $(TARGET): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $@
+	$(CXX) $(OBJS) -o $@
 	@echo "$(GREEN)[BUILD OK]$(RESET) $(TARGET)"
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@count=$$(cat $(COUNT_FILE) 2>/dev/null || echo 0); \
+	count=$$((count + 1)); \
+	echo $$count > $(COUNT_FILE); \
+	printf "$(GREEN)[%d$(RESET)/$(BLUE)%d$(RESET)] $(GREEN)OK!$(RESET) %s\n" \
+	$$count $(TOTAL) $@
 
+$(OBJDIR)/%.o: %.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 	@count=$$(cat $(COUNT_FILE) 2>/dev/null || echo 0); \
 	count=$$((count + 1)); \
 	echo $$count > $(COUNT_FILE); \
@@ -50,5 +61,5 @@ $(OBJDIR)/%.o: %.c
 	$$count $(TOTAL) $@
 
 clean:
-	@rm -rf $(OBJDIR) $(TARGET) $(COUNT_FILE)
+	rm -rf $(OBJDIR) $(TARGET) $(COUNT_FILE)
 	@echo "$(GREEN)[CLEAN OK]$(RESET)"
