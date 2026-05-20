@@ -15,7 +15,9 @@ C_SRCS = $(wildcard $(SRCDIR)/*.c) \
          $(wildcard lib/scheduler/*.c) \
          $(wildcard lib/command/*.c) \
          $(wildcard lib/interrupts/*.c) \
-         $(wildcard lib/logic_gates/*.c)
+         $(wildcard lib/logic_gates/*.c) \
+         $(wildcard lib/sys_status/*.c) \
+         $(wildcard lib/registers/*.c)
 
 CPP_SRCS = $(wildcard lib/sys_status/*.cpp)
 
