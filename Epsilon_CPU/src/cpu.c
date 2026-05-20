@@ -18,6 +18,7 @@
 #include "../lib/command/ld_a_b.h"
 #include "../lib/interrupts/keyboard_interr.h"
 #include "../lib/sys_status/sys_status.h"
+#include "../lib/registers/A_register.h"
 
 // data of values
 typedef struct{
@@ -87,12 +88,17 @@ int CPU_MAIN(void)
     clock_cycle();
     write_cache(RAM); 
 
+    /* Registers */
+    clock_cycle();
+    printf("A register is ready... \n");
+    ARegister(RAM);
+    ARegister(CACHE);
+
     /* Keyboard */   
     keyboard_interrupts(d.A,d.B);
 
     /* ALU result printed for commands */  
     output_ALU(d.A,d.B);
-
 
     return 0;
 }
