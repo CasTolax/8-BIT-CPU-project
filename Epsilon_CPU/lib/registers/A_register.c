@@ -1,5 +1,10 @@
 /*
     By CasTolax 2026
+
+
+    This isn’t exactly a real example of an A register. In fact, 
+    I came up with this register style (though not an exact copy)
+     using my own imagination—as long as it works, the rest doesn’t matter to me!
 */
 
 #include <stdint.h>
