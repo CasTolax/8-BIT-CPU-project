@@ -13,6 +13,6 @@ extern int AR[AR_SIZE];
 
 
 void ARegister(int AREGISTER[AR_SIZE]);
-
+void AWait(int index, int AREGISTER[AR_SIZE]);
 
 #endif
