@@ -1,5 +1,8 @@
 /*
     * By CasTolax
+
+    * The flag register adress are here -->
+    /lib/registers/Fregisters
 */
 
 #ifndef OPCODES_H
