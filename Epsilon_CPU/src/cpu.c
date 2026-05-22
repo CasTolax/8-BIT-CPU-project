@@ -19,6 +19,7 @@
 #include "../lib/interrupts/keyboard_interr.h"
 #include "../lib/sys_status/sys_status.h"
 #include "../lib/registers/A_register.h"
+#include "../lib/registers/Fregisters/flags.h"
 
 // data of values
 typedef struct{
@@ -93,6 +94,9 @@ int CPU_MAIN(void)
     printf("A register is ready... \n");
     ARegister(RAM);
     ARegister(CACHE);
+
+    // Carry flag
+    CF(d.A);
 
     /* Keyboard */   
     keyboard_interrupts(d.A,d.B);
