@@ -15,7 +15,7 @@
 //#define OF 0xf3
 
 void CF(int Carry_flag);
-void OF(int Overflow_flag);
+void OF(int A, int B);
 void ZF(int Zero_flag);
 
 #endif
