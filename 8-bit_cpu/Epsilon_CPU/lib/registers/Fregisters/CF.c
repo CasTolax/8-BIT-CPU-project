@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 #include "../lib/alu/alu.h"
-#include "/home/can/Masaüstü/8-bit_cpu/Epsilon_CPU/src/cpu.h"
+#include "../src/cpu.h"
 
 void CF(int Carry_flag)
 {	
@@ -17,7 +17,7 @@ void CF(int Carry_flag)
 		if you change this, look at the:
 		cpu.c file
 	*/
-	d.A = 256;
+	d.A = 22;
 	d.B = 5;
 
 	Carry_flag = 0; // disable
