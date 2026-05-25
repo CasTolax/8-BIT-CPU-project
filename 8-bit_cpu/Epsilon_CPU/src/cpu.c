@@ -32,7 +32,7 @@ int cpu_error(void){
     data d;
 
     /* values */
-    d.A = 256;
+    d.A = 22;
     d.B = 5;
 
     /* NULL and zero errors handling */
@@ -73,8 +73,8 @@ int CPU_MAIN(void)
     status_main();
     
     data d;
-    d.A = 100;
-    d.B = 300;
+    d.A = -200;
+    d.B = 5;
 
     clock_cycle(); // Start the clock cycle
     ALU(d.A,d.B);
@@ -87,10 +87,6 @@ int CPU_MAIN(void)
     printf("A register is ready... \n");
     ARegister(RAM);
     ARegister(CACHE);
-
-    // Carry flag
-    CF(d.A);
-    CF(d.B);
 
     /* Keyboard */   
     keyboard_interrupts(d.A,d.B);
