@@ -1,115 +1,109 @@
 /*
-    By CasTolax 2026
+    * By CasTolax 2026
+
+    ! if you wanna change A and B, you can also
+    change cpu.c,CF.c !
 */
 
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <stdbool.h>
+#include <unistd.h>
 
-#include "keyboard_interr.h"
-#include "../lib/command/ld_a_b.h"
-#include "../lib/command/sys_status_command.h"
+#include "cpu.h" // prototype of CPU_MAIN
 #include "../lib/alu/alu.h"
+#include "../lib/opcodes.h"
+#include "../lib/err/errors.h"
+
+#include "../lib/clock.h"
+// #include "../lib/scheduler.h" // make another day
+#include "../lib/command/write_cache.h"
+#include "../lib/command/ld_a_b.h"
+#include "../lib/interrupts/keyboard_interr.h"
+#include "../lib/sys_status/sys_status.h"
 #include "../lib/registers/A_register.h"
+#include "../lib/registers/Fregisters/flags.h"
 
-bool keyboardInterr_active = true;
 
-void keyboard_status(void)
-{
-    int keyboard_enable = KEYBOARD_TRUE;
-    int keyboard_disable = KEYBOARD_FALSE;
+// CPU error handling
+int cpu_error(void){
 
-    if (keyboard_enable)
-    {
-        printf("[Keyboard enabled] = 1\n");
+    /* struct datas */
+    data d;
+
+    /* values */
+    d.A = 22;
+    d.B = 5;
+
+    /* NULL and zero errors handling */
+    if(d.A == 0){
+        null_warning();
+    } 
+    else if(d.B == 0){
+        null_warning();
     }
-    else if (keyboard_disable)
-    {
-        printf("[Keyboard disabled] = 0\n");
-    }
-}
-
-int input_interr(int value_1, int value_2)
-{
-    int values[10] = {0};
-
-    keyboard_status();
-
-    printf("Scanning inputs...\n");
-
-    scanf("%d", &value_1);
-    scanf("%d", &value_2);
-
-    values[0] = value_1;
-    values[1] = value_2;
-
-    for (int i = 0; i < 10; i++)
-    {
-        printf("%d ", values[i]);
+    else{
+        return 0;
     }
 
-    printf("\n");
+    /* division process: divided by zero error handling */
+    if(DIV(d.A,d.B) == 0){
+        zero_division_error();
+    }
+    else{
+        return 0;
+    }
+
+    // RAM overflow ERROR
+    if(RAM[RAM_SIZE] == 256){
+        memory_overflow_error();
+    } else {
+        return 0;
+    }
+
 
     return 0;
 }
 
-int keyboard_interrupts(int A, int B)
-{
-    char input[64];
 
-    printf("\nYou can write command right now (exit = 0).\n");
+// the MAIN function
+int CPU_MAIN(void)
+{   
+    // system status
+    status_main();
+    
+    data d;
+    d.A = -200;
+    d.B = 5;
 
-    keyboard_status();
+    clock_cycle(); // Start the clock cycle
+    ALU(d.A,d.B);
+    
+    /* cache */
+    clock_cycle();
+    write_cache(RAM); 
 
-    while (1)
-    {
-        printf("> ");
+    /* Registers */
+    printf("A register is ready... \n");
+    ARegister(RAM);
+    ARegister(CACHE);
 
-        // input önce okunmalı
-        if (fgets(input, sizeof(input), stdin) == NULL)
-        {
-            break;
-        }
+    /* Keyboard */   
+    keyboard_interrupts(d.A,d.B);
 
-        // newline temizle
-        input[strcspn(input, "\n")] = 0;
-
-        // exit kontrolü artık doğru yerde
-        if (strcmp(input, "0") == 0)
-            break;
-
-        if (strcmp(input, "LDA") == 0)
-        {
-            lda(A);
-        }
-        else if (strcmp(input, "LDB") == 0)
-        {
-            ldb(B);
-        }
-        else if (strcmp(input, "ALU") == 0)
-        {
-            output_ALU(A, B);
-        }
-        else if (strcmp(input, "STATUS") == 0)
-        {
-            sys_control();
-        }
-        else if (strcmp(input, "INPUT VALUE") == 0)
-        {
-            int value1 = 0, value2 = 0;
-            input_interr(value1, value2);
-        }
-        else if(strcmp(input, "RAM RESET") == 0)
-        {
-            RAM_RESET();
-        }
-        else
-        {
-            printf("\n");
-        }
-    }
+    /* ALU result printed for commands */  
+    output_ALU(d.A,d.B);
 
     return 0;
 }
+
+// function called 
+int main(void)
+{       
+    CPU_MAIN(); // Call the function
+    cpu_error();
+
+    //run_scheduler(CPU_MAIN);
+    return 0;
+}
+
