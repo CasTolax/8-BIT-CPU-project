@@ -1,109 +1,129 @@
 /*
-    * By CasTolax 2026
-
-    ! if you wanna change A and B, you can also
-    change cpu.c,CF.c !
+    By CasTolax 2026
 */
 
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string.h>
+#include <stdbool.h>
 
-#include "cpu.h" // prototype of CPU_MAIN
-#include "../lib/alu/alu.h"
-#include "../lib/opcodes.h"
-#include "../lib/err/errors.h"
-
-#include "../lib/clock.h"
-// #include "../lib/scheduler.h" // make another day
-#include "../lib/command/write_cache.h"
+#include "../src/cpu.h"
+#include "keyboard_interr.h"
 #include "../lib/command/ld_a_b.h"
-#include "../lib/interrupts/keyboard_interr.h"
-#include "../lib/sys_status/sys_status.h"
+#include "../lib/command/sys_status_command.h"
+#include "../lib/alu/alu.h"
 #include "../lib/registers/A_register.h"
 #include "../lib/registers/Fregisters/flags.h"
 
+bool keyboardInterr_active = true;
+extern int zero_flag;
 
-// CPU error handling
-int cpu_error(void){
 
-    /* struct datas */
-    data d;
+void keyboard_status(void)
+{
+    int keyboard_enable = KEYBOARD_TRUE;
+    int keyboard_disable = KEYBOARD_FALSE;
 
-    /* values */
-    d.A = 22;
-    d.B = 5;
-
-    /* NULL and zero errors handling */
-    if(d.A == 0){
-        null_warning();
-    } 
-    else if(d.B == 0){
-        null_warning();
+    if (keyboard_enable)
+    {
+        printf("[Keyboard enabled] = 1\n");
     }
-    else{
-        return 0;
+    else if (keyboard_disable)
+    {
+        printf("[Keyboard disabled] = 0\n");
+    }
+}
+
+int input_interr(int value_1, int value_2)
+{
+    int values[10] = {0};
+
+    keyboard_status();
+
+    printf("Scanning inputs...\n");
+
+    scanf("%d", &value_1);
+    scanf("%d", &value_2);
+
+    values[0] = value_1;
+    values[1] = value_2;
+
+    for (int i = 0; i < 10; i++)
+    {
+        printf("%d ", values[i]);
     }
 
-    /* division process: divided by zero error handling */
-    if(DIV(d.A,d.B) == 0){
-        zero_division_error();
-    }
-    else{
-        return 0;
-    }
-
-    // RAM overflow ERROR
-    if(RAM[RAM_SIZE] == 256){
-        memory_overflow_error();
-    } else {
-        return 0;
-    }
-
+    printf("\n");
 
     return 0;
 }
 
-
-// the MAIN function
-int CPU_MAIN(void)
+int keyboard_interrupts(int A, int B)
 {   
-    // system status
-    status_main();
-    
-    data d;
-    d.A = -200;
-    d.B = 5;
+    char input[64];
 
-    clock_cycle(); // Start the clock cycle
-    ALU(d.A,d.B);
-    
-    /* cache */
-    clock_cycle();
-    write_cache(RAM); 
+    printf("\nYou can write command right now (exit = 0).\n");
 
-    /* Registers */
-    printf("A register is ready... \n");
-    ARegister(RAM);
-    ARegister(CACHE);
+    keyboard_status();
 
-    /* Keyboard */   
-    keyboard_interrupts(d.A,d.B);
+    while (1)
+    {
+        printf("> ");
 
-    /* ALU result printed for commands */  
-    output_ALU(d.A,d.B);
+        // input önce okunmalı
+        if (fgets(input, sizeof(input), stdin) == NULL)
+        {
+            break;
+        }
+
+        // newline temizle
+        input[strcspn(input, "\n")] = 0;
+
+        // exit kontrolü artık doğru yerde
+        if (strcmp(input, "0") == 0)
+            break;
+
+        if (strcmp(input, "LDA") == 0)
+        {
+            lda(A);
+        }
+        else if (strcmp(input, "LDB") == 0)
+        {
+            ldb(B);
+        }
+        else if (strcmp(input, "ALU") == 0)
+        {
+            output_ALU(A, B);
+        }
+        else if (strcmp(input, "STATUS") == 0)
+        {
+            sys_control();
+        }
+        else if (strcmp(input, "INPUT VALUE") == 0)
+        {
+            int value1 = 0, value2 = 0;
+            input_interr(value1, value2);
+        }
+        else if(strcmp(input, "RAM RESET") == 0)
+        {
+            RAM_RESET();
+        }
+        else if(strcmp(input, "FLAGS") == 0)
+        {
+            CF(A);
+            CF(B);
+            OF(A,B);
+            ZF(ADD(A,B));
+            ZF(SUB(A,B));
+            ZF(MUL(A,B));
+            ZF(DIV(A,B));
+        }
+        else
+        {
+            printf("\n");
+        }
+    }
 
     return 0;
 }
-
-// function called 
-int main(void)
-{       
-    CPU_MAIN(); // Call the function
-    cpu_error();
-
-    //run_scheduler(CPU_MAIN);
-    return 0;
-}
-
