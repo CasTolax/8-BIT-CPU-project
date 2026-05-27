@@ -36,28 +36,35 @@ int cpu_error(void){
     d.B = 5;
 
     /* NULL and zero errors handling */
-    if(d.A == 0){
+    if(d.A == 0)
+    {
         null_warning();
     } 
-    else if(d.B == 0){
+    else if(d.B == 0)
+    {
         null_warning();
     }
-    else{
+    else
+    {
         return 0;
     }
 
     /* division process: divided by zero error handling */
-    if(DIV(d.A,d.B) == 0){
+    if(DIV(d.A,d.B) == 0)
+    {
         zero_division_error();
     }
-    else{
+    else
+    {
         return 0;
     }
 
     // RAM overflow ERROR
-    if(RAM[RAM_SIZE] == 256){
+    if(RAM[RAM_SIZE] == 256)
+    {
         memory_overflow_error();
-    } else {
+    } else 
+    {
         return 0;
     }
 
