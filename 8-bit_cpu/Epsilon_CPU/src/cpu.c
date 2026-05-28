@@ -23,6 +23,7 @@
 #include "../lib/sys_status/sys_status.h"
 #include "../lib/registers/A_register.h"
 #include "../lib/registers/Fregisters/flags.h"
+#include "../lib/PANIC/panic.h"
 
 
 // CPU error handling
@@ -76,11 +77,13 @@ int cpu_error(void){
 // the MAIN function
 int CPU_MAIN(void)
 {   
+    sys_control_handling();
+    
     // system status
     status_main();
     
     data d;
-    d.A = -200;
+    d.A = 5;
     d.B = 5;
 
     clock_cycle(); // Start the clock cycle
@@ -95,22 +98,29 @@ int CPU_MAIN(void)
     ARegister(RAM);
     ARegister(CACHE);
 
+    /* ALU result printed for commands */  
+    output_ALU(d.A,d.B);
+
     /* Keyboard */   
     keyboard_interrupts(d.A,d.B);
 
-    /* ALU result printed for commands */  
-    output_ALU(d.A,d.B);
 
     return 0;
 }
 
 // function called 
 int main(void)
-{       
+{   
+
+    for(int i = 0; i<256;i++)
+    {
+        RAM[i] = 1;
+    }
+
     CPU_MAIN(); // Call the function
     cpu_error();
-
-    //run_scheduler(CPU_MAIN);
+    printf(" \n SHUTDOWN \n");
+    
     return 0;
 }
 
