@@ -15,6 +15,7 @@
 #include "../lib/alu/alu.h"
 #include "../lib/registers/A_register.h"
 #include "../lib/registers/Fregisters/flags.h"
+#include "../lib/PANIC/panic.h"
 
 bool keyboardInterr_active = true;
 extern int zero_flag;
@@ -118,6 +119,10 @@ int keyboard_interrupts(int A, int B)
             ZF(SUB(A,B));
             ZF(MUL(A,B));
             ZF(DIV(A,B));
+        }
+        else if(strcmp(input, "PANIC CONTROL") == 0)
+        {
+            sys_control_handling();
         }
         else
         {
