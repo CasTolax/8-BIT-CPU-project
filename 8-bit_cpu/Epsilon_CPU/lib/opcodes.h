@@ -10,6 +10,8 @@
 
 // OPCODES MAP
 
+#define RAM_CODE 0x0ddf
+#define CACHE_CODE 0x0AAf
 #define RAM_SIZE 256       // size of the RAM
 extern int RAM[RAM_SIZE];    // RAM array
 
