@@ -23,28 +23,21 @@ int ALU (int A, int B);
 
 void RAM_RESET(void);
 
-static inline uint8_t ADD (uint8_t A, uint8_t B)
+static inline uint16_t ADD(uint8_t A, uint8_t B)
 {   
-    uint8_t result = A + B;
-    return result;
+    return (uint16_t)A + (uint16_t)B;
 }
-
-static inline uint8_t SUB (uint8_t A, uint8_t B)
+static inline uint16_t SUB(uint8_t A, uint8_t B)
 {   
-    uint8_t result = A - B;
-    return result;
+    return (uint16_t)A - (uint16_t)B;
 }
-
-static inline uint8_t MUL (uint8_t A, uint8_t B)
+static inline uint16_t MUL(uint8_t A, uint8_t B)
 {   
-    uint8_t result = A * B;
-    return result;
+    return (uint16_t)A * (uint16_t)B;
 }
-
-static inline uint8_t DIV (uint8_t A, uint8_t B)
+static inline uint16_t DIV(uint8_t A, uint8_t B)
 {   
-    uint8_t result = A / B;
-    return result;
+    return (uint16_t)A / (uint16_t)B;
 }
 
 #endif
