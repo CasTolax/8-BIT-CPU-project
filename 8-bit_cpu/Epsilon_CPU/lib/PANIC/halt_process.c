@@ -18,7 +18,7 @@
 #include "../lib/opcodes.h"
 #include "../lib/clock.h"
 
-int sys_control_handling(void)
+int sys_control_handling(int A,int B)
 {
     uint8_t cores[10];
     memset(cores, 0, sizeof(cores));
@@ -66,5 +66,33 @@ int sys_control_handling(void)
 
     if (p.RAM_HANDLING) return p.RAM_HANDLING;
     if (p.CACHE_HANDLING) return p.CACHE_HANDLING;
+
+    /* control the ALU functions */
+    if(ADD(A,B) > OVERFLOW_LIMIT)
+    {
+        printf("ADD OVERFLOW[0x01]\n");
+        print_ERROR("CHECK THE INPUT");
+        invalid_process_error();
+    }
+    if(SUB(A,B) > OVERFLOW_LIMIT)
+    {
+        printf("SUB OVERFLOW[0x02]\n");
+        print_ERROR("CHECK THE INPUT");
+        invalid_process_error();
+    }
+    if(MUL(A,B) > OVERFLOW_LIMIT)
+    {
+        printf("MUL OVERFLOW[0x03]\n");
+        print_ERROR("CHECK THE INPUT");
+        invalid_process_error();
+    }
+    if(DIV(A,B) > OVERFLOW_LIMIT)
+    {
+        printf("DIV OVERFLOW[0x04]\n");
+        print_ERROR("CHECK THE INPUT");
+        invalid_process_error();
+    }
+    
+
     return 0;
 }
