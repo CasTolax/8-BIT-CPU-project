@@ -1,12 +1,11 @@
 /*
 	By CasTolax 2026
 
-	burada işlemcinin sınırını korumaya yönelik 
-	kodlar bulunacaktır.
+	This section will contain code designed to protect the processor's limits.
 
-	işlemci de bellek boyutu, önbellek boyutu, işlem sınırıları
-	ve bir çok hata yönetimi burada olucak. eğer ki aşılan 3'den 
-	fazla işlem olursa ekrana panic vericek ve sistem kendini durdurucaktır.
+It will include information on memory size, cache size, processing limits,
+and various error-handling mechanisms. If the number of operations exceeds 3,
+the system will display a panic message and shut down.
 */
 
 #include <stdint.h>
@@ -16,11 +15,11 @@
 #define PANIC_H
 
 /*
-	Burada özellikle herhangi birisinin sınırı aşılır ise,
-	otomatik olarak kapanacak ve sistemin durumuna göre
-	ya yeniden başlatıcak yada kısa süreliğine durdurucaktır.
-	aslında bu scheduler mantığına benziyor ancak bu olmadan 
-	scheduler yapmayı düşünmüyorum.
+	Specifically, if anyone exceeds the limit here,
+    it will automatically shut down and, depending on the system’s status,
+    either restart or pause temporarily.
+    Actually, this resembles the scheduler logic, but without it,
+    I don’t plan on implementing a scheduler.
 */
 typedef struct 
 {
