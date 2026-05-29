@@ -77,14 +77,25 @@ int cpu_error(void){
 // the MAIN function
 int CPU_MAIN(void)
 {   
-    sys_control_handling();
+
+    data d;
+    d.A = 256;
+    d.B = 257;
+
+    printf("sys_control_handling called\n");
+    fflush(stdout);
+
+    printf("RAM VALUE = %d\n", RAM[RAM_SIZE - 1]);
+    fflush(stdout);
+
+    printf("CACHE VALUE = %d\n", CACHE[CACHE_SIZE - 1]);
+    fflush(stdout);
+
+    sys_control_handling(d.A,d.B);
     
     // system status
     status_main();
     
-    data d;
-    d.A = 5;
-    d.B = 5;
 
     clock_cycle(); // Start the clock cycle
     ALU(d.A,d.B);
@@ -111,11 +122,6 @@ int CPU_MAIN(void)
 // function called 
 int main(void)
 {   
-
-    for(int i = 0; i<256;i++)
-    {
-        RAM[i] = 1;
-    }
 
     CPU_MAIN(); // Call the function
     cpu_error();
