@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define OVERFLOW_LIMIT 255 // for the any variable or ALU function
+
 // when calculations is divided with zero, this function will be called.
 void zero_division_error(void);
 
