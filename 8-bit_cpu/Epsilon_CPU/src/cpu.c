@@ -24,7 +24,9 @@
 #include "../lib/registers/A_register.h"
 #include "../lib/registers/Fregisters/flags.h"
 #include "../lib/PANIC/panic.h"
+#include "../lib/PANIC/cpu_loop.h"
 
+CPU cpu = { false, 0x0000, 0 };
 
 // CPU error handling
 int cpu_error(void){
@@ -79,8 +81,8 @@ int CPU_MAIN(void)
 {   
 
     data d;
-    d.A = 256;
-    d.B = 257;
+    d.A = 22;
+    d.B = 5;
 
     printf("sys_control_handling called\n");
     fflush(stdout);
@@ -115,7 +117,6 @@ int CPU_MAIN(void)
     /* Keyboard */   
     keyboard_interrupts(d.A,d.B);
 
-
     return 0;
 }
 
@@ -125,6 +126,7 @@ int main(void)
 
     CPU_MAIN(); // Call the function
     cpu_error();
+    cpu_run();
     printf(" \n SHUTDOWN \n");
     
     return 0;
