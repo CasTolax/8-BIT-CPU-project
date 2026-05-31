@@ -33,16 +33,20 @@ int input_interr(int value_1, int value_2)
 {
     int values[10] = {0};
     keyboard_status();
+
     printf("Scanning inputs...\n");
     scanf("%d", &value_1);
     scanf("%d", &value_2);
-    // buffer temizle
+
+    // clear buffer
     int c; while ((c = getchar()) != '\n' && c != EOF);
     values[0] = value_1;
     values[1] = value_2;
+
     for (int i = 0; i < 10; i++)
         printf("%d ", values[i]);
     printf("\n");
+
     return 0;
 }
 
@@ -104,9 +108,9 @@ int keyboard_interrupts(int A, int B)
         }
         else if (strcmp(input, "REBOOT") == 0)
         {
-            // buffer temizle, sonra cpu_run'a geç
+            
             cpu_run();
-            // cpu_run'dan döndükten sonra (HALT yapıldıysa) buradan da çık
+           
             if (cpu.halted) break;
         }
         else if (strcmp(input, "HALT") == 0)
@@ -121,7 +125,7 @@ int keyboard_interrupts(int A, int B)
         }
         else
         {
-            printf("[INFO] Bilinmeyen komut: '%s'\n", input);
+            printf("[INFO] ??: '%s'\n", input);
         }
     }
     return 0;
