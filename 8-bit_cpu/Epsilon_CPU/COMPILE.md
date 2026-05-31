@@ -3,6 +3,7 @@
 ## Compilers...
 
 First, we need compilers; this processor simulation runs on C and C++ code. Therefore, we need to download and use GCC and G++.
+(Maybe its not compile in your machine. So, you can use compile.py if you can!)
 
 ## Possible Errors
 
