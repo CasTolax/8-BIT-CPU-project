@@ -1,18 +1,23 @@
+### HOW TO COMPILE?
 
+## Compilers...
 
-### NASIL DERLENİR?
+First, we need compilers; this processor simulation runs on C and C++ code. Therefore, we need to download and use GCC and G++.
 
-## Derleyeciler...
+## Possible Errors
 
-İlk olarak derleyecilere ihitiyacımız var, bu işlemci simülasyonu C,C++ kodlarıyla çalışmaktadır. Sonuç olarak GCC ve G++ indirmeniz ve kullanmamız gerekmektedir.
+If the code isn’t compiling, I couldn’t find a solution, and this error appears: “missing separator...”
 
-## Olabilecek hatalar
+I carefully reviewed all the code in the Makefile but couldn’t find any issues. Just in case, I removed spaces from any lines where a TAB might cause problems and added TAB characters. However, it still didn’t work, so I sought help from Cloude AI, and it suggested I use this Python script instead—and it actually worked! If you encounter a similar issue, paste this code into the terminal!
 
-eğer ki kodlar derlenmiyor ise, ben bir çözüm bulamadım ve bu hata da: missing separator...
+(Don’t forget to adjust the code for your own machine!)
 
-Makefile daki tüm kodlara dikkatle baktım ancak herhangi bir problem bulamadım, ne olur olmaz her bir TAB problemi yaratacak satırlara boşlukları sildim ve TAB tuşu ekledim. Ancak yine olmadı, bende Cloude AI dan yardım aldım ve bu python yazılımını tercih etmem gerektiğini söyledi, ve hakikatende çalıştı, eğer sizde böyle bir problem yaşarsanız bu kodu terminale yapıştırın!
+## May 31, 2026 Latest Updates!
+I’ve been working on this project for about a month (maybe longer, since I was also trying to build it physically using a 74HC chip). While working on it, I relied on solid sources like Intel to access C and C++ documentation and learn how the processor works. 
 
-(kodu kendi makinenize göre ayarlamayı unutmayın!)
+Currently, this project includes the following: CLOCK, ALU, RAM, CACHE, INTERRUPTS, ERRORS, REGISTERS, PANIC MODE, SYSTEM STATUS, a very simple SCHEDULER, OPCODES, FLAGS (ZF, OF, CF), and GATES. I can honestly say I’ve managed to simulate it quite nicely!
+
+(Additionally, it runs in the terminal...)
 
 # Makefile for Epsilon_CPU
 CC = gcc
