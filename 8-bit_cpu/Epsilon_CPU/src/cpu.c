@@ -22,6 +22,7 @@
 #include "../lib/interrupts/keyboard_interr.h"
 #include "../lib/sys_status/sys_status.h"
 #include "../lib/registers/A_register.h"
+#include "../lib/registers/B_register.h"
 #include "../lib/registers/Fregisters/flags.h"
 #include "../lib/PANIC/panic.h"
 #include "../lib/PANIC/cpu_loop.h"
@@ -110,6 +111,10 @@ int CPU_MAIN(void)
     printf("A register is ready... \n");
     ARegister(RAM);
     ARegister(CACHE);
+
+    printf("B register is ready...\n");
+    BRegister(RAM);
+    BRegister(CACHE);
 
     /* ALU result printed for commands */  
     output_ALU(d.A,d.B);
