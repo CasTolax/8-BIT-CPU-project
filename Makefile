@@ -24,7 +24,8 @@ C_SRCS = $(wildcard $(SRCDIR)/*.c) \
          $(wildcard lib/sys_status/*.c) \
          $(wildcard lib/registers/*.c) \
          $(wildcard lib/registers/Fregisters/*.c) \
-         $(wildcard lib/PANIC/*.c)
+         $(wildcard lib/PANIC/*.c) \
+         $(wildcard lib/compiler/*.c)
          
 
 

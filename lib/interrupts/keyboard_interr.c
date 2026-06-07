@@ -15,6 +15,7 @@
 #include "../lib/registers/Fregisters/flags.h"
 #include "../lib/PANIC/panic.h"
 #include "../lib/PANIC/cpu_loop.h"
+#include "../lib/compiler/compile.h"
 
 bool keyboardInterr_active = true;
 extern int zero_flag;
@@ -87,6 +88,10 @@ int keyboard_interrupts(int A, int B)
         {
             int value1 = 0, value2 = 0;
             input_interr(value1, value2);
+        }
+        else if(strcmp(input, "CODE") == 0)
+        {
+            parser();
         }
         else if (strcmp(input, "RAM RESET") == 0)
         {
