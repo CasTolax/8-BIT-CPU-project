@@ -43,7 +43,7 @@ int cpu_error(void){
     if(d.A == 0)
     {
         null_warning();
-    } 
+    }
     else if(d.B == 0)
     {
         null_warning();
@@ -67,7 +67,7 @@ int cpu_error(void){
     if(RAM[RAM_SIZE] == 256)
     {
         memory_overflow_error();
-    } else 
+    } else
     {
         return 0;
     }
@@ -79,7 +79,7 @@ int cpu_error(void){
 
 // the MAIN function
 int CPU_MAIN(void)
-{   
+{
 
     data d;
     d.A = 22;
@@ -95,17 +95,17 @@ int CPU_MAIN(void)
     fflush(stdout);
 
     sys_control_handling(d.A,d.B);
-    
+
     // system status
     status_main();
-    
+
 
     clock_cycle(); // Start the clock cycle
     ALU(d.A,d.B);
-    
+
     /* cache */
     clock_cycle();
-    write_cache(RAM); 
+    write_cache(RAM);
 
     /* Registers */
     printf("A register is ready... \n");
@@ -116,24 +116,22 @@ int CPU_MAIN(void)
     BRegister(RAM);
     BRegister(CACHE);
 
-    /* ALU result printed for commands */  
+    /* ALU result printed for commands */
     output_ALU(d.A,d.B);
 
-    /* Keyboard */   
+    /* Keyboard */
     keyboard_interrupts(d.A,d.B);
 
     return 0;
 }
 
-// function called 
+// function called
 int main(void)
-{   
+{
 
     CPU_MAIN(); // Call the function
     cpu_error();
     cpu_run();
     printf(" \n SHUTDOWN \n");
-    
     return 0;
 }
-

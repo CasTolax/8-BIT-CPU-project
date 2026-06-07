@@ -1,12 +1,17 @@
 # Makefile for Epsilon_CPU
+
 CC = gcc
 CXX = g++
+
 CFLAGS = -std=c11 -Wall -Wextra -Werror -g
 CXXFLAGS = -std=c++17 -Wall -Wextra -Werror -g
+
 INCLUDES = -I./lib -I./src
+
 SRCDIR = src
 OBJDIR = obj
 TARGET = epsilon_cpu
+
 
 C_SRCS = $(wildcard $(SRCDIR)/*.c) \
          $(wildcard lib/*.c) \
@@ -20,11 +25,14 @@ C_SRCS = $(wildcard $(SRCDIR)/*.c) \
          $(wildcard lib/registers/*.c) \
          $(wildcard lib/registers/Fregisters/*.c) \
          $(wildcard lib/PANIC/*.c)
+         
 
-CPP_SRCS = $(wildcard lib/sys_status/*.cpp)
 
 C_OBJS = $(patsubst %.c,$(OBJDIR)/%.o,$(C_SRCS))
+
+# not useful this
 CPP_OBJS = $(patsubst %.cpp,$(OBJDIR)/%.o,$(CPP_SRCS))
+
 OBJS = $(C_OBJS) $(CPP_OBJS)
 
 TOTAL := $(words $(OBJS))

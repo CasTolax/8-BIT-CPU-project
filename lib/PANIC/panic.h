@@ -31,6 +31,6 @@ typedef struct
 }panic_datas_cpu_t;
 
 
-uint8_t sys_control_handling(int A,int B);
+int sys_control_handling(int A,int B);
 
 #endif
